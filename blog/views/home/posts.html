@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>前台详情页</title>
+   <link href="/css/bootstrap.min.css" rel="stylesheet">
+   <script src="/js/jquery-1.11.3.min.js"></script>
+   <script src="/js/bootstrap.min.js"></script>
+   <link rel="stylesheet" href="/css/posts.css">
+</head>
+<body>
+   <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
+   <div class="container">
+      <div class="navbar-header">
+         <button type="button" class="navbar-toggle" data-toggle="collapse" 
+            data-target="#example-navbar-collapse">
+            <span class="sr-only">切换导航</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+         </button>
+         <a class="navbar-brand" href="#">我的博客</a>
+      </div>
+      <div class="collapse navbar-collapse" id="example-navbar-collapse">
+         <ul class="nav navbar-nav">
+            <li class="active"><a href="/">首页</a></li>
+            <%for(var i=0;i<cats.length;i++){%>
+               <li><a href="/second?title=<%=cats[i].title%>"><%=cats[i].title%></a></li>
+            <%}%>
+<!--             <li><a href="#">HTML</a></li>
+            <li><a href="#">CSS</a></li>
+            <li><a href="#">JavaScript</a></li>
+            <li><a href="#">Node.js</a></li> -->
+         </ul>
+         <form class="navbar-form navbar-right">
+            <div class="input-group">
+               <input type="text" placeholder="请输入关键字" class="form-control">
+               <span class="input-group-btn">
+                  <button class="btn btn-primary">搜索</button>
+               </span>
+            </div>
+         </form>    
+      </div>
+   </div>
+   </nav>
+   <div class="banner-img"><img src="/images/baner.jpg"></div>
+      <div class="container">
+      <div class="row main-content">
+         <div class="col-md-9">
+            <ul class='breadcrumb'>
+               <li><a href="">首页</a></li>
+               <li><a href=""><%=data.cat%></a></li>
+               <li><a href=""><%=data.title%></a></li>
+            </ul>
+            <hr>
+             <div class="media-body">
+               <h2 class="media-heading"><%=data.title%></h2>
+               <p>Killer 发表于(<%=data.time%>) 本文标签: 浏览量：<%=data.coint%>次　<a href=""><b class="glyphicon glyphicon-thumbs-up"></b><%=data.coint%>浏览</a>　<a href=""><b class="glyphicon glyphicon-heart"></b>评论一下</a></p>
+               <hr>
+               <script src='/js/markdown.min.js'></script>
+               <div id="contentOne"><%=data.content%></div>
+               <script>
+                  $("#contentOne").html(markdown.toHTML($("#contentOne").html()));
+                  $('#contentOne').find('p').css({"text-indent":'2em'});
+               </script>
+<!--                <h2 class="media-heading">响应式Web设计</h2>
+               <p>Killer 发表于(2014-06-13) 本文标签: 浏览量：101次　<a href=""><b class="glyphicon glyphicon-thumbs-up"></b>83浏览</a>　<a href=""><b class="glyphicon glyphicon-heart"></b>评论一下</a></p>
+               <hr>
+               <h3>在设计中经常遇到这几个问题：</h3>
+               <P>想要网站兼容手机、平板电脑、pc，就得为不同的设备定制不同的版本。</P>
+               <p>响应式Web设计(Responsive Web design)的理念是页面的设计与开发应当根据设备环境（屏幕尺寸、屏幕定向、系统平台等）以及用户行为（改变窗口大小等）进行相应的响应和调整。
+               具体的实践方式由多方面组成，包括弹性网格和布局、图片、CSS media query的使用等。
+               无论用户正在使用pc、平板电脑，或者手机，无论是全屏显示还是非全屏的情况，无论屏幕是横向还是竖向，页面都应该能够自动切换分辨率、图片尺寸及相关脚本功能等，以适应不同设备</p>
+               <p>很多人并不是在全屏的情况下浏览我们的页面，如果让页面随着浏览器宽度改变而相应的调整会不会比较好？</p>
+               <p>响应式web设计对交互设计和前端实现提出了更高的要求，需要考虑清楚不同分辨率下页面的布局变化、内容的缩放等。</p> -->
+               <hr>
+               <div class="row" style="padding-bottom:20px;">
+                  <h3 style="padding-left:1em;">相关文章</h3>
+                  <div class='col-sm-6'><a href=""><b class="glyphicon glyphicon-link"></b>响应式Web设计</a></div>
+                  <div class='col-sm-6'><a href=""><b class="glyphicon glyphicon-link"></b>响应式Web设计</a></div>
+                  <div class='col-sm-6'><a href=""><b class="glyphicon glyphicon-link"></b>响应式Web设计</a></div>
+                  <div class='col-sm-6'><a href=""><b class="glyphicon glyphicon-link"></b>响应式Web设计</a></div>
+                  <div class='col-sm-6'><a href=""><b class="glyphicon glyphicon-link"></b>响应式Web设计</a></div>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-3">
+            <div class="panel panel-default">
+               <div class="panel-heading">
+                 热门文章
+               </div>
+               <div class="panel-body hotArticle">
+                  <% for(var i=0;i<hot.length;i++){ %>
+                  <p><span class="label
+                  <% if(i<3){%>
+                  label-danger
+                  <%}else{%>
+                  label-info
+                  <% } %>
+                  "><%=i+1%></span><a href="/posts?id=<%=hot[i]._id%>"><%=hot[i].title%></a></p>
+                  <% } %>
+                 <!--  <p><span class="label label-danger">1</span><a href="">如何为网站和应用创建设计</a></p>
+                  <p><span class="label label-danger">2</span><a href="">假如5年后你是开发总监</a></p>
+                  <p><span class="label label-danger">3</span><a href="">20个精雕细琢的LOGO草图</a></p>
+                  <p><span class="label label-info">4</span><a href="">每个程序员都必须遵守的编程...</a></p>
+                  <p><span class="label label-info">5</span><a href="">推荐：7个有用的HTML5学习</a></p>
+                  <p><span class="label label-info">6</span><a href=""> 响应式Web设计</a></p>
+                  <p><span class="label label-info">7</span><a href=""> Javascript判断Chrome浏览器</a></p>
+                  <p><span class="label label-info">8</span><a href="">20个精雕细琢的LOGO草图...</a></p> -->
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="footer">
+      <p>版权所有，保留一切权利！转载内容版权归作者及来源网站所有，原创内容转载请注明来源</p>
+      <p>Copyright © 2013-2014 andy, All Rights Reserved</p>
+   </div>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>前台下一页</title>
+   <link href="/css/bootstrap.min.css" rel="stylesheet">
+   <script src="/js/jquery-1.11.3.min.js"></script>
+   <script src="/js/bootstrap.min.js"></script>
+   <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+   <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
+   <div class="container">
+      <div class="navbar-header">
+         <button type="button" class="navbar-toggle" data-toggle="collapse" 
+            data-target="#example-navbar-collapse">
+            <span class="sr-only">切换导航</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+         </button>
+         <a class="navbar-brand" href="#">我的博客</a>
+      </div>
+      <div class="collapse navbar-collapse" id="example-navbar-collapse">
+         <ul class="nav navbar-nav">
+            <li class="active"><a href="/">首页</a></li>
+            <%for(var i=0;i<cats.length;i++){%>
+               <li><a href="/second?title=<%=cats[i].title%>"><%=cats[i].title%></a></li>
+            <%}%>
+            <script>
+               $('#example-navbar-collapse').find('li').on('click',function(){
+                  $(this).addClass('active').siblings().removeClass('active');
+               })
+            </script>
+         </ul>
+         <form class="navbar-form navbar-right">
+            <div class="input-group">
+               <input type="text" placeholder="请输入关键字" class="form-control">
+               <span class="input-group-btn">
+                  <button class="btn btn-primary">搜索</button>
+               </span>
+            </div>
+         </form>    
+      </div>
+   </div>
+   </nav>
+   <div class="banner-img"><img src="/images/baner.jpg"></div>
+   <div class="container">
+      <div class="row main-content">
+         <div class="col-md-9">
+         <%for(var i=0;i<posts.length;i++){%>
+            <div class="media">
+               <a href="/posts?id=<%= posts[i]._id%>" class="media-left">
+                  <img src="/<%=posts[i].cover%>" alt='' style="width:300px;height:158px;">
+               </a>
+               <div class="media-body">
+                  <h3 class="media-heading"><a href="/posts?id=<%= posts[i]._id%>"><%=posts[i].title%></a></h3>
+                  <p>
+                     <span><b class="glyphicon glyphicon-user"></b> admin</span>
+                     <span><b class="glyphicon glyphicon-time"></b> <%=posts[i].time%></span>
+                     <span><b class="glyphicon glyphicon-eye-open"></b> <%=posts[i].coint%></span> 
+                     <span><b class="glyphicon glyphicon-comment"></b> <a href="">评论一下</a></span> 
+                  </p>
+                  <p><%=posts[i].summary%></p>
+               </div>
+            </div>
+            <hr>
+         <% } %>
+            <div class="text-center">
+               <ul class="pagination pagination-sm">
+                  <li class="
+                  <%if(index-1){%>
+                  <%}else{%>
+                     disabled
+                  <%}%>
+                  "><a href='/next?page=<%=index-1%>'>&laquo;</a></li>
+                  <%for(var i=0;i<total;i++){%>
+                     <li class="
+                        <% if(i==index-1){%>
+                           active
+                        <%}else{%>
+                           
+                        <% } %>
+                     "><a href='/next?page=<%=i+1%>'><%=i+1%></a></li>
+                     <%}%>
+                  <li class="
+                  <%if(total==index){%>
+                     disabled
+                  <%}else{%>
+                  <%}%>
+                  "><a href='/next?page=<%=+index+1%>'>&raquo;</a></li>
+               </ul>
+            </div>
+         </div>
+         <div class="col-md-3">
+            <div class="panel panel-default">
+               <div class="panel-heading">
+                 热门文章
+               </div>
+               <div class="panel-body hotArticle">
+               <% for(var i=0;i<hot.length;i++){ %>
+               <p><span class="label
+                <% if(i<3){%>
+                  label-danger
+               <%}else{%>
+                  label-info
+               <% } %>
+               "><%=i+1%></span><a href="/posts?id=<%=hot[i]._id%>"><%=hot[i].title%></a></p>
+               <% } %>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="footer">
+      <p>版权所有，保留一切权利！转载内容版权归作者及来源网站所有，原创内容转载请注明来源</p>
+      <p>Copyright © 2013-2014 andy, All Rights Reserved</p>
+   </div>
+</body>
+</html>
